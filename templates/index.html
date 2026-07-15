@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darkroom Caption Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Fraunces:ital,wght@0,400;0,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <span class="safelight-dot"></span>
+    <span class="brand">DARKROOM <span class="brand-thin">Caption Lab</span></span>
+  </div>
+  <div class="topbar-right">
+    <span class="mono-label">CNN + LSTM · init-inject</span>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <h1>Develop a caption from any photograph.</h1>
+    <p>Upload an image. The model looks once, then writes what it sees — one word at a time, like a print slowly appearing in the tray.</p>
+  </section>
+
+  <section class="lab">
+
+    <div class="filmframe" id="dropzone">
+      <div class="sprockets sprockets-left"></div>
+      <div class="sprockets sprockets-right"></div>
+
+      <div class="frame-inner" id="frameInner">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">◎</div>
+          <p>Drop a photo here<br><span class="mono-label small">or click to browse</span></p>
+        </div>
+        <img id="previewImg" class="preview-img hidden" alt="Uploaded preview">
+      </div>
+
+      <input type="file" id="fileInput" accept="image/*" hidden>
+      <div class="frame-number mono-label" id="frameNumber">FRAME No. 000</div>
+    </div>
+
+    <div class="controls">
+      <div class="method-toggle" id="methodToggle">
+        <button class="toggle-btn active" data-method="beam">Beam Search</button>
+        <button class="toggle-btn" data-method="greedy">Greedy</button>
+      </div>
+      <button class="develop-btn" id="developBtn" disabled>Develop Caption</button>
+    </div>
+
+    <div class="caption-tray" id="captionTray">
+      <div class="tray-label mono-label small">CAPTION</div>
+      <p class="caption-text" id="captionText">&nbsp;</p>
+      <div class="tray-meta mono-label small" id="trayMeta"></div>
+    </div>
+
+  </section>
+
+  <section class="stats">
+    <div class="stat-card">
+      <div class="stat-label mono-label small">BLEU-1</div>
+      <div class="stat-value">0.501</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label mono-label small">BLEU-2</div>
+      <div class="stat-value">0.326</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label mono-label small">BLEU-3</div>
+      <div class="stat-value">0.213</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label mono-label small">BLEU-4</div>
+      <div class="stat-value">0.136</div>
+    </div>
+    <div class="stat-card wide">
+      <div class="stat-label mono-label small">TRAINED ON</div>
+      <div class="stat-value small-value">Flickr8K &middot; 8,091 images</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="mono-label small">Encoder: frozen InceptionV3 (ImageNet) &middot; Decoder: LSTM, image-seeded initial state &middot; Evaluated with corpus BLEU, beam width 3</p>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
